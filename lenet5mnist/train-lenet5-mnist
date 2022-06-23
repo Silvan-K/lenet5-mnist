@@ -44,8 +44,8 @@ if __name__ == "__main__":
 
     torch.manual_seed(0)
 
-    from data import get_datasets
-    from model import LeNet5
+    from lenet5mnist.data import get_datasets
+    from lenet5mnist.model import LeNet5
     from torch import nn
     
     # Instantiate model, dataset, loss function, optimizer
