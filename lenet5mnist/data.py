@@ -41,12 +41,14 @@ def load_data():
     return data_train, data_test
 
 
-def get_datasets(batch_size):
+def get_dataset(batch_size):
     data_train, data_test = load_data()
+    train_batch_size = batch_size if batch_size > 0 else len(data_train)
+    test_batch_size = batch_size if batch_size > 0 else len(data_test)
     train_loader = torch.utils.data.DataLoader(dataset = data_train,
-                                               batch_size = batch_size,
+                                               batch_size = train_batch_size,
                                                shuffle = True)
     test_loader = torch.utils.data.DataLoader(dataset = data_test,
-                                              batch_size = batch_size,
+                                              batch_size = test_batch_size,
                                               shuffle = True)
     return train_loader, test_loader
