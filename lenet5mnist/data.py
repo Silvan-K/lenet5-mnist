@@ -41,7 +41,7 @@ def load_data():
     return data_train, data_test
 
 
-def get_dataset(batch_size):
+def get_datasets(batch_size):
     data_train, data_test = load_data()
     train_batch_size = batch_size if batch_size > 0 else len(data_train)
     test_batch_size = batch_size if batch_size > 0 else len(data_test)
