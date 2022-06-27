@@ -12,8 +12,7 @@ class LeNet5(nn.Module):
                                     nn.MaxPool2d(kernel_size = 2,
                                                  stride = 2))
         
-        self.layer1 = nn.Sequential(nn.Conv2d(6, 16, kernel_size=5,
-                                              stride=1, padding=0),
+        self.layer1 = nn.Sequential(nn.Conv2d(6, 16, kernel_size=5),
                                     nn.BatchNorm2d(16),
                                     nn.ReLU(),
                                     nn.MaxPool2d(kernel_size = 2,
