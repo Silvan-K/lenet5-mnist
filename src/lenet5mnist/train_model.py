@@ -39,12 +39,11 @@ def train_model(model, dataset, loss_fct, optimizer, num_epochs):
             
     return model
 
-if __name__ == "__main__":
-
-
+def main():
+    
     from argparse import ArgumentParser
     parser = ArgumentParser()
-    parser.add_argument("-output-path", default="lenet5-mnist.onnx")
+    parser.add_argument("--output-path", default="lenet5-mnist.onnx")
     parser.add_argument("--num-epochs", default=100, type=int)
     parser.add_argument("--batch-size", default=32, type=int)
     parser.add_argument("--learning-rate", default=0.01, type=float)
@@ -55,11 +54,10 @@ if __name__ == "__main__":
     
     from lenet5mnist.data import get_datasets
     from lenet5mnist.model import LeNet5
-    from torch import nn
     
     # Instantiate model, dataset, loss function, optimizer
     model = LeNet5()
-    loss_fct = nn.CrossEntropyLoss()
+    loss_fct = torch.nn.CrossEntropyLoss()
     train_set, test_set = get_datasets(batch_size=args.batch_size)
     optimizer = torch.optim.Adam(model.parameters(), lr=args.learning_rate)
 
@@ -68,13 +66,3 @@ if __name__ == "__main__":
 
     # Save model
     torch.onnx.export(model, (torch.empty(size=[1,1,32,32])), args.output_path)
-
-    # Set your model into evaluation mode by calling model.eval(), otherwise
-    # batch norm ops will make this test fail
-    
-    # 1. Create a multi-batch input (x = torch.rand([4, 3, 224, 224])
-    # 2. Set your input to be differentiable (x.requires_grad = True)
-    # 3. Run a forward pass (out = model(x))
-    # 4. Define the loss as depending from only one of the inputs (for instance: loss = out[2].sum())
-    # 5. Run a backprop (loss.backward)
-    # 6. Verify that only x[2] has non-null gradients: assert (x.grad[i] == 0.).all() for i != 2 and (x.grad[2] != 0).any()

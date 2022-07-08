@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lenet5mnist"
+description = "A pytorch implementation of LeNet-5 applied to the MNIST data set"
+readme = "README.md"
+dependencies = ["torch"]
+dynamic = ["version"]
+
+[project.scripts]
+train-lenet5-mnist = "lenet5mnist:main"
