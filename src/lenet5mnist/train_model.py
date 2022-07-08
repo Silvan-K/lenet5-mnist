@@ -45,8 +45,8 @@ def main():
     parser = ArgumentParser()
     parser.add_argument("--output-path", default="lenet5-mnist.onnx")
     parser.add_argument("--num-epochs", default=100, type=int)
-    parser.add_argument("--batch-size", default=32, type=int)
-    parser.add_argument("--learning-rate", default=0.01, type=float)
+    parser.add_argument("--batch-size", default=64, type=int)
+    parser.add_argument("--learning-rate", default=0.001, type=float)
     parser.add_argument("--random-seed", default=0, type=int)
     args = parser.parse_args()
 
