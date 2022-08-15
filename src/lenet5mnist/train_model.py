@@ -6,6 +6,7 @@ def train_model(model, dataset, loss_fct, optimizer, num_epochs):
 
     # Determine device we are running on
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    model = model.to(device)
 
     # To monitor loss
     loss_history = []

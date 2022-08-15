@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "lenet5mnist"
 description = "A pytorch implementation of LeNet-5 applied to the MNIST data set"
 readme = "README.md"
-dependencies = ["torch"]
+dependencies = ["torch", "torchvision"]
 dynamic = ["version"]
 
 [project.scripts]
