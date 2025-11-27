@@ -65,5 +65,7 @@ def main():
     # Run training loop
     model = train_model(model, train_set, loss_fct, optimizer, args.num_epochs)
 
-    # Save model
+    # Save model in ONNX format
+    model.eval()
+    model = model.to('cpu')
     torch.onnx.export(model, (torch.empty(size=[1,1,32,32])), args.output_path)
