@@ -4,7 +4,9 @@ def train_model(model, dataset, loss_fct, optimizer, num_epochs):
 
     import json
 
-    # Determine device we are running on
+    # Move model to GPU if available, and use data parallelism if multiple GPUs present
+    if torch.cuda.device_count() > 1:
+        model = torch.nn.DataParallel(model)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = model.to(device)
 
@@ -30,15 +32,13 @@ def train_model(model, dataset, loss_fct, optimizer, num_epochs):
             # Log loss
             loss_history.append(loss.item())
         		
-            if (i+1) % 100 == 0:
-                print(f"Epoch [{epoch+1}/{num_epochs}], "
-                      f"batch [{i+1}/{num_batches}], Loss: {loss.item():.4f}")
+            print(f"Epoch [{epoch+1}/{num_epochs}], "
+                  f"batch [{i+1}/{num_batches}], Loss: {loss.item():.4f}")
                     
-            if (i+1) % 1000 == 0:
-                with open("loss.json", "w") as ofile:
-                    json.dump(loss_history, ofile)
+            with open("loss.json", "w") as ofile:
+                json.dump(loss_history, ofile)
             
-    return model
+    return model.module if isinstance(model, torch.nn.DataParallel) else model
 
 def main():
     
